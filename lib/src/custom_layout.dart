@@ -15,10 +15,12 @@ abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
   void initState() {
     _currentIndex = widget.index ?? 0;
 
-    final renderObject = context.findRenderObject()!;
-    final size = renderObject.paintBounds.size;
-    _swiperWidth = size.width;
-    _swiperHeight = size.height;
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      final renderObject = context.findRenderObject()!;
+      final size = renderObject.paintBounds.size;
+      _swiperWidth = size.width;
+      _swiperHeight = size.height;
+    });
 
     if (widget.itemWidth == null) {
       throw Exception(
