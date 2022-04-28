@@ -2,8 +2,8 @@ part of 'swiper.dart';
 
 abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
     with SingleTickerProviderStateMixin {
-  double? _swiperWidth;
-  double? _swiperHeight;
+  double _swiperWidth = 0;
+  double _swiperHeight = 0;
   late Animation<double> _animation;
   late AnimationController _animationController;
   SwiperController get _controller => widget.controller;
@@ -235,13 +235,13 @@ abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
-    if (_lockScroll || _swiperWidth == null) return;
+    if (_lockScroll) return;
     var value = _currentValue +
         ((widget.scrollDirection == Axis.horizontal
                     ? details.globalPosition.dx
                     : details.globalPosition.dy) -
                 _currentPos) /
-            _swiperWidth! /
+            _swiperWidth /
             2;
     // no loop ?
     if (!widget.loop) {
