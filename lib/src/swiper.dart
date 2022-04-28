@@ -831,8 +831,10 @@ class _TinderState extends _CustomLayoutStateBase<_TinderSwiper> {
   }
 
   void _updateValues() {
-    if (widget.scrollDirection == Axis.horizontal) {
-      offsetsX = [0.0, 0.0, 0.0, 0.0, _swiperWidth, _swiperWidth];
+    if (_swiperWidth != null || _swiperHeight != null) {
+      return;
+    } else if (widget.scrollDirection == Axis.horizontal) {
+      offsetsX = [0.0, 0.0, 0.0, 0.0, _swiperWidth!, _swiperWidth!];
       offsetsY = [
         0.0,
         0.0,
@@ -851,7 +853,7 @@ class _TinderState extends _CustomLayoutStateBase<_TinderSwiper> {
         20.0,
       ];
 
-      offsetsY = [0.0, 0.0, 0.0, 0.0, _swiperHeight, _swiperHeight];
+      offsetsY = [0.0, 0.0, 0.0, 0.0, _swiperHeight!, _swiperHeight!];
     }
   }
 
@@ -900,14 +902,16 @@ class _StackViewState extends _CustomLayoutStateBase<_StackSwiper> {
   }
 
   void _updateValues() {
-    if (widget.scrollDirection == Axis.horizontal) {
-      final space = (_swiperWidth - widget.itemWidth!) / 2;
+    if (_swiperWidth != null || _swiperHeight != null) {
+      return;
+    } else if (widget.scrollDirection == Axis.horizontal) {
+      final space = (_swiperWidth! - widget.itemWidth!) / 2;
       offsets = widget.axisDirection == AxisDirection.left
-          ? [-space, -space / 3 * 2, -space / 3, 0.0, _swiperWidth]
-          : [_swiperWidth, 0.0, -space / 3, -space / 3 * 2, -space];
+          ? [-space, -space / 3 * 2, -space / 3, 0.0, _swiperWidth!]
+          : [_swiperWidth!, 0.0, -space / 3, -space / 3 * 2, -space];
     } else {
-      final space = (_swiperHeight - widget.itemHeight!) / 2;
-      offsets = [-space, -space / 3 * 2, -space / 3, 0.0, _swiperHeight];
+      final space = (_swiperHeight! - widget.itemHeight!) / 2;
+      offsets = [-space, -space / 3 * 2, -space / 3, 0.0, _swiperHeight!];
     }
   }
 
